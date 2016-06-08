@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="./index.css">
+  <script src="./animations.js"></script>
+</head>
+<body>
+  <div id="box">A</div>
+  <script type="text/javascript">
+    window.addEventListener("keydown", handleKeyDown, true);
+    var box = document.getElementById('box');
+
+    function handleKeyDown(e) {
+      var iterations = 1;
+      var duration= 1200;
+      box.innerHTML = String.fromCharCode(e.keyCode);
+      var animationFn = getAnimation()
+      animationFn(box, iterations, duration);
+    }
+
+    function getAnimation() {
+      var animationKeys = Object.keys(animations);
+      var min = 0;
+      var max = animationKeys.length;
+      var animationKey = animationKeys[ Math.floor(Math.random() * (max - min)) + min];
+      return animations[animationKey];
+    }
+
+  </script>
+</body>
+</html>

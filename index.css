@@ -1,0 +1,19 @@
+body {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  background: #363ca1;
+  overflow: hidden;
+}
+
+#box {
+  line-height: 25vw;
+  color: white;
+  font-size: 25vw;
+  width: 25vw;
+  height: 25vw;
+  min-width: 160px;
+  min-height: 160px;
+  border-radius: 4px;
+}
