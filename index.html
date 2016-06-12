@@ -9,21 +9,39 @@
   <script type="text/javascript">
     window.addEventListener("keydown", handleKeyDown, true);
     var box = document.getElementById('box');
+    var letter = null;
+    var player = null
 
     function handleKeyDown(e) {
-      var iterations = 1;
-      var duration= 1200;
-      box.innerHTML = String.fromCharCode(e.keyCode);
-      var animationFn = getAnimation()
-      animationFn(box, iterations, duration);
+      if (!player || player && player.playState === 'finished') {
+        String.fromCharCode(e.keyCode);
+        var newLetter = String.fromCharCode(e.keyCode);
+        box.innerHTML = newLetter;
+        if ( newLetter === letter ) {
+          player.reverse();
+        } else {
+          player = getPlayer(box);
+          player.play();
+        }
+        letter = newLetter;
+      }
     }
 
-    function getAnimation() {
+    function getPlayer (element) {
+      var iterations = 1;
+      var duration = 1200;
+      var animation = getRandomAnimation(iterations, duration);
+      var player = element.animate(animation.keyframes, animation.timing);
+      player.pause();
+      return player;
+    }
+
+    function getRandomAnimation(iterations, duration) {
       var animationKeys = Object.keys(animations);
       var min = 0;
       var max = animationKeys.length;
       var animationKey = animationKeys[ Math.floor(Math.random() * (max - min)) + min];
-      return animations[animationKey];
+      return animations[animationKey](iterations, duration);
     }
 
   </script>
