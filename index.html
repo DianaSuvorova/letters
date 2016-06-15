@@ -8,40 +8,59 @@
   <div id="box">A</div>
   <script type="text/javascript">
     window.addEventListener("keydown", handleKeyDown, true);
-    var box = document.getElementById('box');
     var letter = null;
     var player = null
 
     function handleKeyDown(e) {
+      var box = document.getElementById('box');
+      if (!box) {
+        box = createBox();
+      }
       if (!player || player && player.playState === 'finished') {
         String.fromCharCode(e.keyCode);
         var newLetter = String.fromCharCode(e.keyCode);
         box.innerHTML = newLetter;
         if ( newLetter === letter ) {
+          player.onfinish = (e) => {
+            box.parentNode.removeChild(box);
+          };
           player.reverse();
+          letter = null;
         } else {
           player = getPlayer(box);
           player.play();
+          letter = newLetter;
         }
-        letter = newLetter;
       }
     }
 
     function getPlayer (element) {
       var iterations = 1;
       var duration = 1200;
-      var animation = getRandomAnimation(iterations, duration);
+      var animationKey = getRandomAnimation();
+      var animation = animations[animationKey](iterations, duration);
       var player = element.animate(animation.keyframes, animation.timing);
+      if (animationKey.includes("Out")) {
+        player.onfinish = (e) => {
+          element.parentNode.removeChild(element);
+        };
+      }
       player.pause();
       return player;
     }
 
-    function getRandomAnimation(iterations, duration) {
+    function getRandomAnimation() {
       var animationKeys = Object.keys(animations);
       var min = 0;
       var max = animationKeys.length;
-      var animationKey = animationKeys[ Math.floor(Math.random() * (max - min)) + min];
-      return animations[animationKey](iterations, duration);
+      return animationKey = animationKeys[ Math.floor(Math.random() * (max - min)) + min];
+    }
+
+    function createBox() {
+      var box = document.createElement('div');
+      box.setAttribute("id", "box");
+      document.getElementsByTagName('body')[0].appendChild(box);
+      return box;
     }
 
   </script>
