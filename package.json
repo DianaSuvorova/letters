@@ -1,0 +1,22 @@
+{
+  "name": "letters",
+  "version": "1.0.0",
+  "description": "letters for Sammy",
+  "main": "main.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DianaSuvorova/letters.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DianaSuvorova/letters/issues"
+  },
+  "homepage": "https://github.com/DianaSuvorova/letters#readme",
+  "devDependencies": {
+    "electron-prebuilt": "^1.2.3"
+  },
+  "scripts": {
+    "start": "electron ."
+  }
+}
