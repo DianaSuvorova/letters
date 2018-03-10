@@ -30,8 +30,11 @@
           player = getPlayer(box);
           player.play();
           letter = newLetter;
+          const speech = new SpeechSynthesisUtterance(newLetter);
+          window.speechSynthesis.speak(speech);
         }
       }
+
     }
 
     function getPlayer (element) {
